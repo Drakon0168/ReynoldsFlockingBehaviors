@@ -8,9 +8,14 @@ public class PathGenerator : MonoBehaviour {
     private int numPoints;
     [SerializeField]
     private Material GLMaterial;
-    private List<Vector3> points;
+    private static List<Vector3> points;
     [SerializeField]
     private float minDistance, maxDistance, minHeight, maxHeight;
+
+    static public List<Vector3> Points
+    {
+        get { return points; }
+    }
 
     private void Start()
     {
