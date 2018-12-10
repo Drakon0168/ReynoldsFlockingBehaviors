@@ -208,10 +208,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numPoints: 20
   GLMaterial: {fileID: 2100000, guid: e6d86b7dc3f4bdf459435beb59e9dcb9, type: 2}
-  minDistance: 50
-  maxDistance: 75
-  minHeight: 10
-  maxHeight: 20
+  minDistance: 60
+  maxDistance: 85
+  minHeight: 20
+  maxHeight: 40
 --- !u!4 &227711466
 Transform:
   m_ObjectHideFlags: 0

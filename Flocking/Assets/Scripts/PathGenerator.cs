@@ -36,18 +36,6 @@ public class PathGenerator : MonoBehaviour {
 
             points.Add(new Vector3(xzPoint.x, height, xzPoint.y));
         }
-
-        //for(int i = 0; i < points.Count; i++)
-        //{
-        //    if(i == 0)
-        //    {
-        //        Debug.DrawLine(points[i], points[points.Count - 1], Color.red, 60f, false);
-        //    }
-        //    else
-        //    {
-        //        Debug.DrawLine(points[i], points[i - 1], Color.red, 60f, false);
-        //    }
-        //}
     }
 
     private void OnRenderObject()
@@ -55,13 +43,22 @@ public class PathGenerator : MonoBehaviour {
         if(points.Count > 0)
         {
             GLMaterial.SetPass(0);
-
+            
             GL.Color(Color.red);
             GL.Begin(GL.LINES);
 
-            foreach (Vector3 position in points)
+            for(int i = 0; i < points.Count; i++)
             {
-                GL.Vertex(position);
+                if(i == 0)
+                {
+                    GL.Vertex(points[i]);
+                    GL.Vertex(points[points.Count - 1]);
+                }
+                else
+                {
+                    GL.Vertex(points[i]);
+                    GL.Vertex(points[i - 1]);
+                }
             }
 
             GL.End();
