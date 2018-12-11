@@ -6,8 +6,6 @@ public class Flocker : MonoBehaviour {
 
     [SerializeField]
     private float height;
-    [SerializeField]
-    private new Transform transform;
 
     void Update()
     {

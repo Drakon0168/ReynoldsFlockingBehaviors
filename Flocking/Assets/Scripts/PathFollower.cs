@@ -31,7 +31,6 @@ public class PathFollower : MonoBehaviour {
 	void Update () {
         Vector3 path = to - from;
         float seekMult = Vector3.Dot(path, (transform.position + velocity) - from) / Vector3.Dot(path, path);
-        Debug.DrawLine(from, to, Color.black);
 
         if(seekMult <= 1)
         {
@@ -39,9 +38,7 @@ public class PathFollower : MonoBehaviour {
             {
                 seekMult = 0;
             }
-
-            Debug.Log(seekMult);
-            Debug.DrawRay(transform.position, velocity, Color.green);
+            
             velocity += Seek(from + path * seekMult) * Time.deltaTime;
         }
         else if(seekMult > 0)
@@ -49,6 +46,7 @@ public class PathFollower : MonoBehaviour {
             GetNextPoint();
         }
 
+        transform.rotation = Quaternion.Euler(Mathf.Asin(velocity.y / velocity.magnitude) * Mathf.Rad2Deg * -1, Mathf.Atan2(velocity.z * -1, velocity.x) * Mathf.Rad2Deg + 90, 0);
         transform.position += velocity * Time.deltaTime;
 	}
 
