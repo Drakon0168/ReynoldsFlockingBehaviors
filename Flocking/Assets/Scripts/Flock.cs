@@ -4,18 +4,67 @@ using UnityEngine;
 
 public class Flock : MonoBehaviour {
 
-    [SerializeField, Tooltip("The speed in degrees t change the angle around the path.")]
-    private float speed;
-    private Vector3 position, velocity, acceleration;
-    private float angle;
+    private static List<Flocker> flockers;
+    private static Vector3 centerPosition, averageDirection, seekPoint;
+    [SerializeField]
+    private int chariotCount;
+    [SerializeField]
+    private GameObject chariotPrefab;
+
+    /// <summary>
+    /// A list of all of the flockers in the scene
+    /// </summary>
+    public static List<Flocker> Flockers
+    {
+        get {
+            if(flockers == null)
+            {
+                flockers = new List<Flocker>();
+            }
+
+            return flockers;
+        }
+        set { flockers = value; }
+    }
+
+    public static Vector3 FlockAlignment
+    {
+        get { return averageDirection; }
+    }
+
+    public static Vector2 CenterPosition
+    {
+        get { return centerPosition; }
+    }
+
+    public static Vector3 SeekPoint
+    {
+        get { return seekPoint; }
+    }
+
+    private void Start()
+    {
+        for(int i = 0; i < chariotCount; i++)
+        {
+            Instantiate(chariotPrefab, new Vector3(Random.value * TerrainGenerator.TerrainWidth - (TerrainGenerator.TerrainWidth / 2), 10, Random.value * TerrainGenerator.TerrainWidth - (TerrainGenerator.TerrainWidth / 2)), Quaternion.Euler(0,0,0), this.transform);
+        }
+    }
 
     void Update()
     {
-        angle += speed * Time.deltaTime;
+        centerPosition = Vector3.zero;
+        averageDirection = Vector3.zero;
 
-        position = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), 0, Mathf.Sin(angle * Mathf.Deg2Rad)) * 100;
-        transform.position = position;
-        transform.rotation = Quaternion.Euler(0, Mathf.Atan2(position.z * -1, position.x) * Mathf.Rad2Deg, 0);
-        Debug.DrawRay(transform.position, transform.forward * 5, Color.yellow);
+        foreach(Flocker flocker in flockers)
+        {
+            centerPosition += flocker.transform.position;
+            averageDirection += flocker.Velocity.normalized;
+        }
+
+        centerPosition /= flockers.Count;
+
+        float angle = Mathf.Atan2(centerPosition.x, centerPosition.z) - (Mathf.PI / 5 + Mathf.PI / 2);
+
+        seekPoint = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle) * -1) * 120;
     }
 }

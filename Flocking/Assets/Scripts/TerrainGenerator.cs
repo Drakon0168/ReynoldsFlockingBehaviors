@@ -10,7 +10,12 @@ public class TerrainGenerator : MonoBehaviour {
     private float step;
     [SerializeField]
     private float pathWidth;
-    private float terrainWidth = 250;
+    private static float terrainWidth = 250;
+
+    public static float TerrainWidth
+    {
+        get { return terrainWidth; }
+    }
 
 	// Use this for initialization
 	void Start () {

@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PathFollower : MonoBehaviour {
+public class PathFollower : Agent {
 
     private Vector3 from, to, seekPoint;
-    private Vector3 velocity;
-    [SerializeField]
-    private float moveSpeed;
     private int currentIndex;
 
 	void Start () {
@@ -28,7 +25,7 @@ public class PathFollower : MonoBehaviour {
         velocity = (to - from).normalized * moveSpeed;
 	}
 	
-	void Update () {
+	protected override void Update () {
         Vector3 path = to - from;
         float seekMult = Vector3.Dot(path, (transform.position + velocity) - from) / Vector3.Dot(path, path);
 
@@ -39,28 +36,16 @@ public class PathFollower : MonoBehaviour {
                 seekMult = 0;
             }
             
-            velocity += Seek(from + path * seekMult) * Time.deltaTime;
+            velocity += Seek(from + path * seekMult) * moveSpeed * Time.deltaTime;
         }
         else if(seekMult > 0)
         {
             GetNextPoint();
         }
 
-        transform.rotation = Quaternion.Euler(Mathf.Asin(velocity.y / velocity.magnitude) * Mathf.Rad2Deg * -1, Mathf.Atan2(velocity.z * -1, velocity.x) * Mathf.Rad2Deg + 90, 0);
-        transform.position += velocity * Time.deltaTime;
+        base.Update();
 	}
-
-    /// <summary>
-    /// Returns to direction to apply force in order to move towards a point
-    /// </summary>
-    /// <returns></returns>
-    private Vector3 Seek(Vector3 target)
-    {
-        Vector3 targetVelocity = (target - transform.position).normalized * moveSpeed;
-
-        return targetVelocity - velocity;
-    }
-
+    
     /// <summary>
     /// Sets from and to to the current and next points along the path
     /// </summary>
