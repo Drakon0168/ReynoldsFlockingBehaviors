@@ -44,9 +44,25 @@ public class Flock : MonoBehaviour {
 
     private void Start()
     {
-        for(int i = 0; i < chariotCount; i++)
+        TerrainGenerator.reset += Reset;
+        Reset();
+    }
+
+    private void Reset()
+    {
+        if(flockers != null)
         {
-            Instantiate(chariotPrefab, new Vector3(Random.value * TerrainGenerator.TerrainWidth - (TerrainGenerator.TerrainWidth / 2), 10, Random.value * TerrainGenerator.TerrainWidth - (TerrainGenerator.TerrainWidth / 2)), Quaternion.Euler(0,0,0), this.transform);
+            foreach(Flocker flocker in flockers)
+            {
+                Destroy(flocker.gameObject);
+            }
+
+            flockers.Clear();
+        }
+
+        for (int i = 0; i < chariotCount; i++)
+        {
+            Instantiate(chariotPrefab, new Vector3(Random.value * TerrainGenerator.TerrainWidth - (TerrainGenerator.TerrainWidth / 2), 10, Random.value * TerrainGenerator.TerrainWidth - (TerrainGenerator.TerrainWidth / 2)), Quaternion.Euler(0, 0, 0), this.transform);
         }
     }
 

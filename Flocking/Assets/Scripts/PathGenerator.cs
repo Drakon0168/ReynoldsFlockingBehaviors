@@ -20,13 +20,20 @@ public class PathGenerator : MonoBehaviour {
     private void Start()
     {
         points = new List<Vector3>();
+        TerrainGenerator.reset += Reset;
+
+        Reset();
+    }
+
+    private void Reset()
+    {
+        if(points != null)
+        {
+            points.Clear();
+        }
 
         GeneratePath();
     }
-
-    private void Update () {
-		
-	}
 
     private void GeneratePath()
     {

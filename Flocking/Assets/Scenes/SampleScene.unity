@@ -499,5 +499,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e3332b083d08024a99681c3643105d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  step: 0.025
+  step: 0.024
   pathWidth: 20
