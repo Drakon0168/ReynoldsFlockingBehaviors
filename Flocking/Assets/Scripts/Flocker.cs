@@ -40,22 +40,15 @@ public class Flocker : Agent {
     protected Vector3 Separation(float radius)
     {
         Vector3 fleeDirection = Vector3.zero;
-        int fleeCount = 0;
 
         foreach(Flocker flocker in Flock.Flockers)
         {
             if((flocker.transform.position - transform.position).sqrMagnitude < radius * radius)
             {
                 fleeDirection += Flee(flocker.transform.position);
-                fleeCount++;
             }
         }
-
-        if(fleeCount > 0)
-        {
-            fleeDirection /= fleeCount;
-        }
-
+        
         return fleeDirection.normalized;
     }
 

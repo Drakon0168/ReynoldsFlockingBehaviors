@@ -248,11 +248,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 20
   height: 1
-  visionRange: 10
-  cohesionWeight: 0.076451786
-  separationWeight: 0.7151774
-  alignmentWeight: 0.056680024
-  seekWeight: 0.15169081
+  visionRange: 5
+  cohesionWeight: 0.18962744
+  separationWeight: 0.2935394
+  alignmentWeight: 0.14058653
+  seekWeight: 0.3762466
 --- !u!135 &135439391891170090
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -81,6 +81,6 @@ public class Flock : MonoBehaviour {
 
         float angle = Mathf.Atan2(centerPosition.x, centerPosition.z) - (Mathf.PI / 5 + Mathf.PI / 2);
 
-        seekPoint = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle) * -1) * 120;
+        seekPoint = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle) * -1) * 130;
     }
 }

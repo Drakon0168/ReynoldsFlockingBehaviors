@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -211,8 +211,8 @@ MonoBehaviour:
   GLMaterial: {fileID: 2100000, guid: e6d86b7dc3f4bdf459435beb59e9dcb9, type: 2}
   minDistance: 25
   maxDistance: 95
-  minHeight: 20
-  maxHeight: 25
+  minHeight: 35
+  maxHeight: 45
 --- !u!4 &227711466
 Transform:
   m_ObjectHideFlags: 0
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16ce72316b2a5b449a1e5ca8077b4fd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chariotCount: 5
+  chariotCount: 10
   chariotPrefab: {fileID: 1372148870540956, guid: 5d7252b8be2cc66438dcf8400279e91c,
     type: 2}
 --- !u!1 &443606895
@@ -500,4 +500,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   step: 0.024
-  pathWidth: 20
+  pathWidth: 25

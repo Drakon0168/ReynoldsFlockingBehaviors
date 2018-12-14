@@ -29,9 +29,8 @@ public class Agent : MonoBehaviour {
     /// </summary>
     protected Vector3 Flee(Vector3 target)
     {
-        Vector3 targetVelocity = (target - transform.position).normalized;
-
-        return targetVelocity / (target - transform.position).sqrMagnitude;
+        Vector3 targetVelocity = (transform.position - target).normalized;
+        return targetVelocity;
     }
 
     protected virtual void Update()

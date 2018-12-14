@@ -11,6 +11,12 @@ public class PathGenerator : MonoBehaviour {
     private static List<Vector3> points;
     [SerializeField]
     private float minDistance, maxDistance, minHeight, maxHeight;
+    private static bool drawDebug;
+
+    public static bool DrawDebug
+    {
+        get { return drawDebug; }
+    }
 
     static public List<Vector3> Points
     {
@@ -23,6 +29,14 @@ public class PathGenerator : MonoBehaviour {
         TerrainGenerator.reset += Reset;
 
         Reset();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            ToggleDebug();
+        }
     }
 
     private void Reset()
@@ -50,30 +64,45 @@ public class PathGenerator : MonoBehaviour {
         }
     }
 
+    public void ToggleDebug()
+    {
+        if (drawDebug)
+        {
+            drawDebug = false;
+        }
+        else
+        {
+            drawDebug = true;
+        }
+    }
+
     private void OnRenderObject()
     {
-        if(points.Count > 0)
+        if (drawDebug)
         {
-            GLMaterial.SetPass(0);
-            
-            GL.Color(Color.red);
-            GL.Begin(GL.LINES);
-
-            for(int i = 0; i < points.Count; i++)
+            if (points.Count > 0)
             {
-                if(i == 0)
-                {
-                    GL.Vertex(points[i]);
-                    GL.Vertex(points[points.Count - 1]);
-                }
-                else
-                {
-                    GL.Vertex(points[i]);
-                    GL.Vertex(points[i - 1]);
-                }
-            }
+                GLMaterial.SetPass(0);
 
-            GL.End();
+                GL.Color(Color.red);
+                GL.Begin(GL.LINES);
+
+                for (int i = 0; i < points.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        GL.Vertex(points[i]);
+                        GL.Vertex(points[points.Count - 1]);
+                    }
+                    else
+                    {
+                        GL.Vertex(points[i]);
+                        GL.Vertex(points[i - 1]);
+                    }
+                }
+
+                GL.End();
+            }
         }
     }
 }
