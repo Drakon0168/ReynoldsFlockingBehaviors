@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Agent : MonoBehaviour {
 
-    protected Vector3 velocity;
+    protected Vector3 velocity, acceleration;
     [SerializeField]
     protected float moveSpeed;
     
@@ -35,6 +35,7 @@ public class Agent : MonoBehaviour {
 
     protected virtual void Update()
     {
+        velocity += acceleration;
         transform.rotation = Quaternion.Euler(Mathf.Asin(velocity.y / velocity.magnitude) * Mathf.Rad2Deg * -1, Mathf.Atan2(velocity.z * -1, velocity.x) * Mathf.Rad2Deg + 90, 0);
         transform.position += velocity * Time.deltaTime;
     }

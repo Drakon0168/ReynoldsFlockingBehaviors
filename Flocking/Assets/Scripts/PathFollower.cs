@@ -36,7 +36,7 @@ public class PathFollower : Agent {
                 seekMult = 0;
             }
             
-            velocity += Seek(from + path * seekMult) * moveSpeed * Time.deltaTime;
+            acceleration = Seek(from + path * seekMult) * moveSpeed * Time.deltaTime;
         }
         else if(seekMult > 0)
         {

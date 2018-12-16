@@ -8,6 +8,10 @@ public class PathGenerator : MonoBehaviour {
     private int numPoints;
     [SerializeField]
     private Material GLMaterial;
+    [SerializeField]
+    private GameObject fuelCanPrefab, particlePrefab;
+    private List<GameObject> fuelCans;
+    private List<ParticleSystem> particlerenderers;
     private static List<Vector3> points;
     [SerializeField]
     private float minDistance, maxDistance, minHeight, maxHeight;
@@ -26,6 +30,8 @@ public class PathGenerator : MonoBehaviour {
     private void Start()
     {
         points = new List<Vector3>();
+        fuelCans = new List<GameObject>();
+        particlerenderers = new List<ParticleSystem>();
         TerrainGenerator.reset += Reset;
 
         Reset();
@@ -46,6 +52,19 @@ public class PathGenerator : MonoBehaviour {
             points.Clear();
         }
 
+        foreach(GameObject fuelCan in fuelCans)
+        {
+            Destroy(fuelCan);
+        }
+
+        foreach(ParticleSystem particle in particlerenderers)
+        {
+            Destroy(particle.gameObject);
+        }
+
+        fuelCans.Clear();
+        particlerenderers.Clear();
+
         GeneratePath();
     }
 
@@ -61,6 +80,30 @@ public class PathGenerator : MonoBehaviour {
             float height = Random.value * (maxHeight - minHeight) + minHeight;
 
             points.Add(new Vector3(xzPoint.x, height, xzPoint.y));
+
+            fuelCans.Add(Instantiate(fuelCanPrefab, points[i], Quaternion.Euler(0, 0, 0), transform));
+            particlerenderers.Add(Instantiate(particlePrefab, points[i], Quaternion.Euler(0, 0, 0), transform).GetComponent<ParticleSystem>());
+        }
+
+        for(int i = 0; i < points.Count; i++)
+        {
+            Vector3 point1 = points[i];
+            Vector3 point2 = Vector3.zero;
+
+            if(i == points.Count - 1)
+            {
+                point2 = points[0];
+            }
+            else
+            {
+                point2 = points[i + 1];
+            }
+
+            particlerenderers[i].transform.LookAt(point2);
+
+            float distance = (point2 - point1).magnitude;
+
+            particlerenderers[i].startLifetime = distance / 25f;
         }
     }
 
