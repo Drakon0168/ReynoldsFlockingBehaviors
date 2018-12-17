@@ -5,7 +5,7 @@ using UnityEngine;
 public class Flocker : Agent {
 
     [SerializeField]
-    private float height, visionRange;
+    private float height;
     [HideInInspector]
     public float cohesionWeight, separationWeight, alignmentWeight, seekWeight;
 

@@ -21,6 +21,11 @@ public class TerrainGenerator : MonoBehaviour {
         get { return terrainWidth; }
     }
 
+    public static float PathHeight
+    {
+        get { return 15f; }
+    }
+
 	// Use this for initialization
 	void Start () {
         terrainData = GetComponent<Terrain>().terrainData;

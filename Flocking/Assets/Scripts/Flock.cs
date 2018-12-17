@@ -10,6 +10,8 @@ public class Flock : MonoBehaviour {
     private int chariotCount;
     [SerializeField]
     private GameObject chariotPrefab;
+    [SerializeField]
+    private GameObject flockCenter, flockLead;
 
     /// <summary>
     /// A list of all of the flockers in the scene
@@ -82,5 +84,11 @@ public class Flock : MonoBehaviour {
         float angle = Mathf.Atan2(centerPosition.x, centerPosition.z) - (Mathf.PI / 5 + Mathf.PI / 2);
 
         seekPoint = new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle) * -1) * 130;
+
+        if (!float.IsNaN(centerPosition.x))
+        {
+            flockCenter.transform.position = centerPosition;
+            flockLead.transform.position = seekPoint;
+        }
     }
 }
